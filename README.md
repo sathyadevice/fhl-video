@@ -65,6 +65,7 @@ You need an Azure OpenAI resource with two models deployed before running the vo
 ### Prerequisites
 - Node.js 20 LTS — https://nodejs.org
 - Claude Code — `npm install -g @anthropic/claude-code`
+  > **Windows:** if `claude` is not recognised after install, run `$env:PATH += ";$(npm config get prefix)"` in PowerShell
 - Azure OpenAI resource with `tts-hd` and `whisper` deployments *(see [Azure OpenAI setup](#azure-openai-setup) above)*
 
 ### Setup
