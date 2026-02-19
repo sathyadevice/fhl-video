@@ -144,6 +144,26 @@ fhl-video/
 
 ---
 
+## Colour themes
+
+Five built-in themes — change one line in `src/constants.ts` to switch:
+
+```ts
+export const ACTIVE_THEME = "ocean"; // midnight | ocean | ember | forest | monochrome
+```
+
+| Theme | Background | Accent | Vibe |
+|-------|-----------|--------|------|
+| `midnight` | Near-black | Purple | Dark, techy (default) |
+| `ocean` | Dark navy | Cyan | Cool, corporate |
+| `ember` | Dark charcoal | Orange | Warm, energetic |
+| `forest` | Dark green-black | Emerald | Calm, trustworthy |
+| `monochrome` | Pure dark | White/silver | Clean, minimal |
+
+The `/fhl-video` skill will ask you to pick a theme during setup.
+
+---
+
 ## How the voiceover pipeline works
 
 1. `generate-audio.mjs` calls **Azure OpenAI TTS** (`tts-hd`) to produce an MP3 per scene

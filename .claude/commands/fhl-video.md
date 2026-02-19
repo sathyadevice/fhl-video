@@ -14,6 +14,12 @@ Ask the following questions **in one message**, as a numbered list so the person
 6. Give **3 benefits** — for each, a short title (2–4 words) and one-line description.
 7. What is your **tech stack**? List up to 4 layers, each with a label and the specific technologies (e.g. "Orchestration — Azure OpenAI GPT-4o, Semantic Kernel").
 8. List **3–5 future scope** items — one line each.
+9. Pick a **colour theme** for your video:
+   - `midnight` — dark background, purple accent (default)
+   - `ocean` — dark navy background, cyan accent
+   - `ember` — dark charcoal background, orange accent
+   - `forest` — dark green background, emerald accent
+   - `monochrome` — pure dark background, white/silver accent
 
 Wait for their answers before proceeding.
 
@@ -42,7 +48,12 @@ Once narration is approved, make **both** of these edits:
 
 ### 3a — `src/constants.ts`
 
-Replace the entire `CONTENT` object with the user's hack details:
+Set the `ACTIVE_THEME` constant to the chosen theme (e.g. `"ocean"`):
+```ts
+export const ACTIVE_THEME = "ocean";
+```
+
+Then replace the entire `CONTENT` object with the user's hack details:
 - `title.hackName` — hack name
 - `title.tagline` — their tagline
 - `title.team` — team name

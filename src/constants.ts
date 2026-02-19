@@ -24,21 +24,85 @@ export const TOTAL_DURATION =
   FUTURE_SCOPE_DURATION -
   NUM_TRANSITIONS * TRANSITION_DURATION; // subtract overlap from TransitionSeries
 
-// ─── Color palette ────────────────────────────────────────────────────────────
-export const COLORS = {
-  bg: "#0a0a0f",
-  bgCard: "#13131f",
-  bgCode: "#1e1e2e",
-  accent: "#7c3aed",
-  accentLight: "#a78bfa",
-  accentGlow: "rgba(124, 58, 237, 0.3)",
-  text: "#ffffff",
-  textMuted: "#94a3b8",
-  textDim: "#4b5563",
-  success: "#10b981",
-  warning: "#f59e0b",
-  border: "rgba(124, 58, 237, 0.25)",
+// ─── Theme ────────────────────────────────────────────────────────────────────
+// Change ACTIVE_THEME to switch the entire colour palette.
+// Options: "midnight" | "ocean" | "ember" | "forest" | "monochrome"
+export const ACTIVE_THEME = "midnight";
+
+const THEMES = {
+  midnight: {
+    bg: "#0a0a0f",
+    bgCard: "#13131f",
+    bgCode: "#1e1e2e",
+    accent: "#7c3aed",
+    accentLight: "#a78bfa",
+    accentGlow: "rgba(124, 58, 237, 0.3)",
+    text: "#ffffff",
+    textMuted: "#94a3b8",
+    textDim: "#4b5563",
+    success: "#10b981",
+    warning: "#f59e0b",
+    border: "rgba(124, 58, 237, 0.25)",
+  },
+  ocean: {
+    bg: "#050d1a",
+    bgCard: "#0a1628",
+    bgCode: "#0d1f38",
+    accent: "#06b6d4",
+    accentLight: "#67e8f9",
+    accentGlow: "rgba(6, 182, 212, 0.3)",
+    text: "#ffffff",
+    textMuted: "#94a3b8",
+    textDim: "#334155",
+    success: "#10b981",
+    warning: "#f59e0b",
+    border: "rgba(6, 182, 212, 0.25)",
+  },
+  ember: {
+    bg: "#0f0a05",
+    bgCard: "#1c1208",
+    bgCode: "#231708",
+    accent: "#f97316",
+    accentLight: "#fdba74",
+    accentGlow: "rgba(249, 115, 22, 0.3)",
+    text: "#ffffff",
+    textMuted: "#a8a29e",
+    textDim: "#57534e",
+    success: "#84cc16",
+    warning: "#eab308",
+    border: "rgba(249, 115, 22, 0.25)",
+  },
+  forest: {
+    bg: "#030a05",
+    bgCard: "#071510",
+    bgCode: "#0a1f12",
+    accent: "#10b981",
+    accentLight: "#6ee7b7",
+    accentGlow: "rgba(16, 185, 129, 0.3)",
+    text: "#ffffff",
+    textMuted: "#94a3b8",
+    textDim: "#374151",
+    success: "#34d399",
+    warning: "#f59e0b",
+    border: "rgba(16, 185, 129, 0.25)",
+  },
+  monochrome: {
+    bg: "#080808",
+    bgCard: "#111111",
+    bgCode: "#1a1a1a",
+    accent: "#e2e8f0",
+    accentLight: "#f8fafc",
+    accentGlow: "rgba(226, 232, 240, 0.2)",
+    text: "#ffffff",
+    textMuted: "#94a3b8",
+    textDim: "#475569",
+    success: "#94a3b8",
+    warning: "#94a3b8",
+    border: "rgba(226, 232, 240, 0.15)",
+  },
 };
+
+export const COLORS = THEMES[ACTIVE_THEME as keyof typeof THEMES];
 
 // ─── Typography ───────────────────────────────────────────────────────────────
 export const FONTS = {
