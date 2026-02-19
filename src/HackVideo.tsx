@@ -9,6 +9,7 @@ import {
   ARCHITECTURE_DURATION,
   BENEFITS_DURATION,
   CODE_WALKTHROUGH_DURATION,
+  DEMO_DURATION,
   FUTURE_SCOPE_DURATION,
   HACK_IDEA_DURATION,
   TITLE_DURATION,
@@ -17,6 +18,7 @@ import {
 import { ArchitectureScene } from "./scenes/ArchitectureScene";
 import { BenefitsScene } from "./scenes/BenefitsScene";
 import { CodeWalkthroughScene } from "./scenes/CodeWalkthroughScene";
+import { DemoScene } from "./scenes/DemoScene";
 import { FutureScopeScene } from "./scenes/FutureScopeScene";
 import { HackIdeaScene } from "./scenes/HackIdeaScene";
 import { TitleScene } from "./scenes/TitleScene";
@@ -70,7 +72,7 @@ export const HackVideo: React.FC = () => {
           <CodeWalkthroughScene />
         </TransitionSeries.Sequence>
 
-        {/* Slide from left — feels like turning the page forward */}
+        {/* Slide from left — into demo (or directly into benefits if no demo) */}
         <TransitionSeries.Transition
           presentation={slide({ direction: "from-left" })}
           timing={springTiming({
@@ -79,7 +81,20 @@ export const HackVideo: React.FC = () => {
           })}
         />
 
-        {/* ── 5. Benefits ──────────────────────────────────────────── */}
+        {/* ── 5. Demo — optional, skipped when DEMO_DURATION = 0 ───── */}
+        {DEMO_DURATION > 0 && (
+          <>
+            <TransitionSeries.Sequence durationInFrames={DEMO_DURATION}>
+              <DemoScene />
+            </TransitionSeries.Sequence>
+            <TransitionSeries.Transition
+              presentation={fade()}
+              timing={linearTiming({ durationInFrames: TRANSITION_DURATION })}
+            />
+          </>
+        )}
+
+        {/* ── 6. Benefits ──────────────────────────────────────────── */}
         <TransitionSeries.Sequence durationInFrames={BENEFITS_DURATION}>
           <BenefitsScene />
         </TransitionSeries.Sequence>
@@ -90,7 +105,7 @@ export const HackVideo: React.FC = () => {
           timing={linearTiming({ durationInFrames: TRANSITION_DURATION })}
         />
 
-        {/* ── 6. Future Scope ──────────────────────────────────────── */}
+        {/* ── 7. Future Scope ──────────────────────────────────────── */}
         <TransitionSeries.Sequence durationInFrames={FUTURE_SCOPE_DURATION}>
           <FutureScopeScene />
         </TransitionSeries.Sequence>

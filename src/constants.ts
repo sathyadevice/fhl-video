@@ -8,18 +8,23 @@ export const TITLE_DURATION = 230;            // audio ~6.3s
 export const HACK_IDEA_DURATION = 350;        // audio ~10.2s
 export const ARCHITECTURE_DURATION = 515;     // audio ~15.7s
 export const CODE_WALKTHROUGH_DURATION = 525; // audio ~15.9s
+// ── Demo scene: set to match your PoC video length (frames = seconds × 30) ──
+// e.g. a 20-second video → 600. Set to 0 to skip the demo scene entirely.
+export const DEMO_DURATION = 300;             // default 10s — update to match your poc.mp4
 export const BENEFITS_DURATION = 415;         // audio ~12.3s
 export const FUTURE_SCOPE_DURATION = 335;     // audio ~9.6s
 
 // Each transition overlaps adjacent sequences, reducing total duration
 export const TRANSITION_DURATION = 25; // frames (~0.83s per transition)
-export const NUM_TRANSITIONS = 5;      // 5 transitions between 6 scenes
+// NUM_TRANSITIONS is 6 when demo scene is active, 5 when skipped (DEMO_DURATION = 0)
+export const NUM_TRANSITIONS = DEMO_DURATION > 0 ? 6 : 5;
 
 export const TOTAL_DURATION =
   TITLE_DURATION +
   HACK_IDEA_DURATION +
   ARCHITECTURE_DURATION +
   CODE_WALKTHROUGH_DURATION +
+  DEMO_DURATION +          // 0 when skipped, so this is a no-op
   BENEFITS_DURATION +
   FUTURE_SCOPE_DURATION -
   NUM_TRANSITIONS * TRANSITION_DURATION; // subtract overlap from TransitionSeries

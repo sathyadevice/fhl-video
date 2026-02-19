@@ -73,11 +73,19 @@ const futureScope: SceneNarration = {
   ],
 };
 
+const demo: SceneNarration = {
+  text: "Watch the demo here. Replace this text in scripts/generate-audio.mjs with your own narration, then re-run npm run generate:audio.",
+  captions: [
+    { start: 10, end: 140, text: "Watch it in action →" },
+  ],
+};
+
 export const NARRATION = {
   title,
   hackIdea,
   architecture,
   codeWalkthrough,
+  demo,
   benefits,
   futureScope,
 } as const;

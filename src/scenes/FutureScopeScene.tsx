@@ -157,8 +157,8 @@ const RoadmapItem: React.FC<{
   text: string;
   progress: number;
   frame: number;
-}> = ({ index, text, progress }) => {
-  const pulse = Math.sin(Date.now() * 0.001 + index) * 0.5 + 0.5; // not frame-based, but subtle
+}> = ({ index, text, progress, frame }) => {
+  const pulse = Math.sin(frame * 0.04 + index * 1.2) * 0.5 + 0.5;
 
   return (
     <div

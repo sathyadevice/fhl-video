@@ -14,7 +14,8 @@ Ask the following questions **in one message**, as a numbered list so the person
 6. Give **3 benefits** — for each, a short title (2–4 words) and one-line description.
 7. What is your **tech stack**? List up to 4 layers, each with a label and the specific technologies (e.g. "Orchestration — Azure OpenAI GPT-4o, Semantic Kernel").
 8. List **3–5 future scope** items — one line each.
-9. Pick a **colour theme** for your video:
+9. Do you have a **PoC demo video** (screen recording, prototype, etc.)? If yes, what is its duration in seconds? Drop the file into `public/poc.mp4` before running the audio pipeline.
+10. Pick a **colour theme** for your video:
    - `midnight` — dark background, purple accent (default)
    - `ocean` — dark navy background, cyan accent
    - `ember` — dark charcoal background, orange accent
@@ -49,6 +50,12 @@ Once narration is approved, make **both** of these edits:
 ### 3a — `src/constants.ts`
 
 Set the `ACTIVE_THEME` constant to the chosen theme (e.g. `"ocean"`):
+
+If the user has a PoC video, set `DEMO_DURATION` to their video length in frames (`seconds × 30`). If they have no PoC video, set it to `0` to skip the demo scene:
+```ts
+export const DEMO_DURATION = 0; // no demo video
+// or e.g. export const DEMO_DURATION = 600; // 20-second demo
+```
 ```ts
 export const ACTIVE_THEME = "ocean";
 ```

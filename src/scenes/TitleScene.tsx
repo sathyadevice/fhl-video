@@ -138,7 +138,7 @@ export const TitleScene: React.FC = () => {
             textShadow: "0 2px 8px rgba(0,0,0,1)",
           }}
         >
-          Microsoft Copilot Hackathon 2026
+          {CONTENT.title.event}
         </div>
 
         {/* Main title — clip-path reveal left-to-right */}

@@ -87,6 +87,12 @@ const SCENES = [
     text: "The action handler runs hybrid retrieval — combining vector search with graph traversal. GPT-4o generates a grounded, cited answer. The ingestion pipeline extracts intent from every pull request and writes causal relationships into the graph.",
   },
   {
+    key: "demo",
+    file: "demo",
+    // Narrate over your PoC video — keep it short, one or two sentences
+    text: "Here it is in action. Watch as Copilot Chat surfaces the exact context behind a pull request in seconds.",
+  },
+  {
     key: "benefits",
     file: "benefits",
     text: "Four wins: institutional memory that outlasts team turnover, ten-times faster onboarding, cross-signal correlation no other tool offers, and zero UI tax — it all lives inside Copilot Chat.",
@@ -203,6 +209,13 @@ ${renderCaptionLines(results.codeWalkthrough.captions)}
   ],
 };
 
+const demo: SceneNarration = {
+  text: ${JSON.stringify(results.demo.text)},
+  captions: [
+${renderCaptionLines(results.demo.captions)}
+  ],
+};
+
 const benefits: SceneNarration = {
   text: ${JSON.stringify(results.benefits.text)},
   captions: [
@@ -222,6 +235,7 @@ export const NARRATION = {
   hackIdea,
   architecture,
   codeWalkthrough,
+  demo,
   benefits,
   futureScope,
 } as const;
