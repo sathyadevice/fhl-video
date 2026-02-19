@@ -21,14 +21,23 @@ node --version
 
 ### 2. Install Claude Code
 
-```bash
+```powershell
 npm install -g @anthropic/claude-code
 ```
 
 Verify:
-```bash
+```powershell
 claude --version
 ```
+
+> **Windows — if `claude` is not recognised after install:**
+> npm's global bin folder isn't in your PATH. Fix it by running:
+> ```powershell
+> $env:PATH += ";$(npm config get prefix)"
+> claude --version
+> ```
+> To make this permanent, add `$(npm config get prefix)` to your system PATH in:
+> **Settings → System → Advanced system settings → Environment Variables → Path**
 
 Log in when prompted — use your Anthropic account (claude.ai).
 
@@ -185,7 +194,7 @@ Your video will be saved to the `out/` folder as an MP4. It renders at **1920×1
 | Audio plays but scene cuts early | Re-run `node scripts/generate-audio.mjs` — it auto-fixes scene durations |
 | Remotion Studio shows blank | Check the terminal for TypeScript errors and paste them into Claude |
 | Port 3001 already in use | Run `npm start` — Remotion will try 3002, 3003, etc. |
-| `claude` command not found | Run `npm install -g @anthropic/claude-code` again in a fresh terminal |
+| `claude` command not found | Run `$env:PATH += ";$(npm config get prefix)"` in PowerShell, then retry. To make permanent, add that folder to System PATH in Windows Settings |
 
 ---
 
