@@ -78,7 +78,7 @@ The clearer these are, the faster the session goes.
 ### Step 1 — Clone and install (5 min)
 
 ```bash
-git clone https://github.com/YOUR-ORG/fhl-video-template.git
+git clone https://github.com/sconjeev_microsoft/fhl-video-template.git
 cd fhl-video-template
 npm install
 ```
