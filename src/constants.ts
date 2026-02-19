@@ -52,7 +52,7 @@ export const CONTENT = {
     hackName: "ContextWeaver",
     tagline: "Your codebase has a memory. Now your team does too.",
     team: "Team Name",
-    event: "Microsoft Copilot Hackathon 2026",
+    event: "Copilot Hackathon 2026",
   },
   hackIdea: {
     problem:
