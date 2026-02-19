@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Rendered output
+out/
+
+# Generated audio — each person runs generate-audio.mjs to create their own
+public/audio/
+
+# Environment variables — never commit API keys
+.env
+.env.local
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
