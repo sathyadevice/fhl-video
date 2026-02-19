@@ -20,12 +20,52 @@ Each scene has AI-generated voiceover and word-accurate live captions synced to 
 
 ---
 
+## Azure OpenAI setup
+
+You need an Azure OpenAI resource with two models deployed before running the voiceover pipeline.
+
+### Step 1 — Create an Azure OpenAI resource
+
+1. Go to [portal.azure.com](https://portal.azure.com)
+2. Search for **Azure OpenAI** → click **Create**
+3. Choose a region — **Sweden Central** or **East US** are recommended (both support TTS)
+4. Complete the creation wizard and wait for the resource to deploy
+
+### Step 2 — Deploy the TTS and Whisper models
+
+1. Go to [ai.azure.com](https://ai.azure.com) (Azure AI Foundry)
+2. Open your Azure OpenAI resource
+3. Navigate to **Deployments** → click **Deploy model**
+4. Deploy the **`tts-hd`** model — set the deployment name to exactly `tts-hd`
+5. Deploy the **`whisper`** model — set the deployment name to exactly `whisper`
+6. Wait for both deployments to show status **Succeeded** before continuing
+
+### Step 3 — Find your endpoint and API key
+
+**Endpoint URL:**
+1. In [ai.azure.com](https://ai.azure.com), click on either deployment (`tts-hd` or `whisper`)
+2. On the deployment detail page, look for **Target URI** or **Endpoint**
+3. Copy the base URL — it looks like:
+   ```
+   https://your-resource-name.cognitiveservices.azure.com
+   ```
+   *(everything before `/openai/deployments/...`)*
+
+**API Key:**
+1. Go to [portal.azure.com](https://portal.azure.com) → your Azure OpenAI resource
+2. In the left sidebar click **Keys and Endpoint**
+3. Copy **Key 1**
+
+> **Keep your API key private.** Never commit it to source control. Always set it as an environment variable as shown below.
+
+---
+
 ## Quickstart
 
 ### Prerequisites
 - Node.js 20 LTS — https://nodejs.org
 - Claude Code — `npm install -g @anthropic/claude-code`
-- Azure OpenAI resource with `tts-hd` and `whisper` deployments
+- Azure OpenAI resource with `tts-hd` and `whisper` deployments *(see [Azure OpenAI setup](#azure-openai-setup) above)*
 
 ### Setup
 
