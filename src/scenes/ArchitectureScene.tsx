@@ -7,7 +7,8 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { CaptionOverlay } from "../components/CaptionOverlay";
+import { AnimatedCaptions } from "../components/AnimatedCaptions";
+import { SceneHeading } from "../components/SceneHeading";
 import { SafeAudio } from "../components/SafeAudio";
 import { COLORS, CONTENT, FONTS, ARCHITECTURE_DURATION, TRANSITION_DURATION } from "../constants";
 import { NARRATION } from "../narration";
@@ -36,8 +37,8 @@ export const ArchitectureScene: React.FC = () => {
           return fadeIn * fadeOut;
         }}
       />
-      <CaptionOverlay captions={NARRATION.architecture.captions} />
-      <SectionLabel label="Architecture" frame={frame} fps={fps} />
+      <AnimatedCaptions captions={NARRATION.architecture.captions} />
+      <SceneHeading label="Architecture" />
 
       {/* Flow diagram */}
       <div
@@ -169,17 +170,6 @@ const Arrow: React.FC<{ frame: number; fps: number; delay: number }> = ({ frame,
           borderLeft: `12px solid ${COLORS.accent}`,
         }}
       />
-    </div>
-  );
-};
-
-const SectionLabel: React.FC<{ label: string; frame: number; fps: number }> = ({ label, frame, fps }) => {
-  const prog = spring({ frame, fps, config: { damping: 18, stiffness: 80 } });
-  const clamp = (v: number) => Math.max(0, Math.min(1, v));
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 20, opacity: clamp(prog) }}>
-      <div style={{ width: 6, height: 48, background: COLORS.accent, borderRadius: 3 }} />
-      <span style={{ fontSize: 48, fontWeight: 700, color: COLORS.text, letterSpacing: "-1px" }}>{label}</span>
     </div>
   );
 };

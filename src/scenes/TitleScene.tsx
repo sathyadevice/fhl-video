@@ -7,7 +7,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { CaptionOverlay } from "../components/CaptionOverlay";
+import { AnimatedCaptions } from "../components/AnimatedCaptions";
 import { ParticleField } from "../components/ParticleField";
 import { SafeAudio } from "../components/SafeAudio";
 import { COLORS, CONTENT, FONTS, TITLE_DURATION, TRANSITION_DURATION } from "../constants";
@@ -109,7 +109,7 @@ export const TitleScene: React.FC = () => {
       <ParticleField count={24} opacity={0.14} />
 
       {/* Captions */}
-      <CaptionOverlay captions={NARRATION.title.captions} />
+      <AnimatedCaptions captions={NARRATION.title.captions} />
 
       {/* ── Text content — stacked in a flex column ── */}
       <div
@@ -133,7 +133,7 @@ export const TitleScene: React.FC = () => {
             textTransform: "uppercase",
             marginBottom: 32,
             opacity: clamp(eyebrowIn),
-            transform: `translateY(${interpolate(clamp(eyebrowIn), [0, 1], [-16, 0])}px)`,
+            transform: `translateY(${interpolate(clamp(eyebrowIn), [0, 1], [-16, 0])}px) scale(${interpolate(clamp(eyebrowIn), [0, 1], [0.97, 1])})`,
             // Dark shadow so it's readable on any bg
             textShadow: "0 2px 8px rgba(0,0,0,1)",
           }}
@@ -152,6 +152,7 @@ export const TitleScene: React.FC = () => {
             textAlign: "center",
             // Reveal sweeps in from left
             clipPath: `inset(0 ${interpolate(clamp(titleIn), [0, 1], [100, 0])}% 0 0)`,
+            transform: `scale(${interpolate(clamp(titleIn), [0, 1], [0.98, 1.0])})`,
             // Strong dark drop-shadow — the key contrast fix
             textShadow:
               "0 2px 0 rgba(0,0,0,0.9), 0 4px 24px rgba(0,0,0,0.95), 0 0 60px rgba(124,58,237,0.4)",
@@ -182,7 +183,7 @@ export const TitleScene: React.FC = () => {
             maxWidth: 860,
             lineHeight: 1.55,
             opacity: clamp(tagIn),
-            transform: `translateY(${interpolate(clamp(tagIn), [0, 1], [20, 0])}px)`,
+            transform: `translateY(${interpolate(clamp(tagIn), [0, 1], [20, 0])}px) scale(${interpolate(clamp(tagIn), [0, 1], [0.97, 1])})`,
             // Crucial: dark text shadow so light text pops against any bg
             textShadow: "0 2px 16px rgba(0,0,0,0.95), 0 0 30px rgba(0,0,0,0.8)",
           }}

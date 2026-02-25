@@ -7,7 +7,8 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { CaptionOverlay } from "../components/CaptionOverlay";
+import { AnimatedCaptions } from "../components/AnimatedCaptions";
+import { SceneHeading } from "../components/SceneHeading";
 import { ParticleField } from "../components/ParticleField";
 import { SafeAudio } from "../components/SafeAudio";
 import { COLORS, CONTENT, FONTS, HACK_IDEA_DURATION, TRANSITION_DURATION } from "../constants";
@@ -44,9 +45,9 @@ export const HackIdeaScene: React.FC = () => {
         }}
       />
       <ParticleField count={18} opacity={0.10} />
-      <CaptionOverlay captions={NARRATION.hackIdea.captions} />
+      <AnimatedCaptions captions={NARRATION.hackIdea.captions} />
 
-      <SectionLabel label="The Hack" frame={frame} fps={fps} />
+      <SceneHeading label="The Hack" />
 
       {/* ── Problem → Solution split cards ── */}
       <div
@@ -262,46 +263,5 @@ export const HackIdeaScene: React.FC = () => {
         })}
       </div>
     </AbsoluteFill>
-  );
-};
-
-const SectionLabel: React.FC<{ label: string; frame: number; fps: number }> = ({
-  label,
-  frame,
-  fps,
-}) => {
-  const prog = spring({ frame, fps, config: { damping: 18, stiffness: 80 } });
-  const clamp = (v: number) => Math.max(0, Math.min(1, v));
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 20,
-        opacity: clamp(prog),
-        transform: `translateY(${interpolate(clamp(prog), [0, 1], [-20, 0])}px)`,
-        zIndex: 1,
-      }}
-    >
-      <div
-        style={{
-          width: 6,
-          height: 52,
-          background: `linear-gradient(180deg, ${COLORS.accentLight}, ${COLORS.accent})`,
-          borderRadius: 3,
-          boxShadow: `0 0 16px ${COLORS.accentGlow}`,
-        }}
-      />
-      <span
-        style={{
-          fontSize: 52,
-          fontWeight: 700,
-          color: COLORS.text,
-          letterSpacing: "-1px",
-        }}
-      >
-        {label}
-      </span>
-    </div>
   );
 };

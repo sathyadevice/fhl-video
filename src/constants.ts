@@ -10,13 +10,13 @@ export const ARCHITECTURE_DURATION = 515;     // audio ~15.7s
 export const CODE_WALKTHROUGH_DURATION = 525; // audio ~15.9s
 // ── Demo scene: set to match your PoC video length (frames = seconds × 30) ──
 // e.g. a 20-second video → 600. Set to 0 to skip the demo scene entirely.
-export const DEMO_DURATION = 300;             // default 10s — update to match your poc.mp4
+export const DEMO_DURATION = 0;               // 0 = no demo scene; set to seconds×30 and swap Root.tsx import to enable
 export const BENEFITS_DURATION = 415;         // audio ~12.3s
 export const FUTURE_SCOPE_DURATION = 335;     // audio ~9.6s
 
 // Each transition overlaps adjacent sequences, reducing total duration
-export const TRANSITION_DURATION = 25; // frames (~0.83s per transition)
-// NUM_TRANSITIONS is 6 when demo scene is active, 5 when skipped (DEMO_DURATION = 0)
+export const TRANSITION_DURATION = 18; // frames (~0.6s per transition)
+// 5 transitions for 6-scene video, 6 when demo scene is active
 export const NUM_TRANSITIONS = DEMO_DURATION > 0 ? 6 : 5;
 
 export const TOTAL_DURATION =
@@ -24,15 +24,15 @@ export const TOTAL_DURATION =
   HACK_IDEA_DURATION +
   ARCHITECTURE_DURATION +
   CODE_WALKTHROUGH_DURATION +
-  DEMO_DURATION +          // 0 when skipped, so this is a no-op
+  DEMO_DURATION +        // 0 when no demo, no-op
   BENEFITS_DURATION +
   FUTURE_SCOPE_DURATION -
-  NUM_TRANSITIONS * TRANSITION_DURATION; // subtract overlap from TransitionSeries
+  NUM_TRANSITIONS * TRANSITION_DURATION;
 
 // ─── Theme ────────────────────────────────────────────────────────────────────
 // Change ACTIVE_THEME to switch the entire colour palette.
 // Options: "midnight" | "ocean" | "ember" | "forest" | "monochrome"
-export const ACTIVE_THEME = "midnight";
+export const ACTIVE_THEME = "ember";
 
 const THEMES = {
   midnight: {

@@ -7,7 +7,8 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { CaptionOverlay } from "../components/CaptionOverlay";
+import { AnimatedCaptions } from "../components/AnimatedCaptions";
+import { SceneHeading } from "../components/SceneHeading";
 import { ParticleField } from "../components/ParticleField";
 import { SafeAudio } from "../components/SafeAudio";
 import { COLORS, CONTENT, FONTS, FUTURE_SCOPE_DURATION, TRANSITION_DURATION } from "../constants";
@@ -20,7 +21,8 @@ export const FutureScopeScene: React.FC = () => {
 
   const breathe = Math.sin(frame * 0.02) * 0.5 + 0.5;
 
-  const closingIn = Math.max(0, Math.min(1, (frame - 120) / 25));
+  // Closing line appears near the end of the scene, not halfway through
+  const closingIn = Math.max(0, Math.min(1, (frame - (FUTURE_SCOPE_DURATION - 90)) / 30));
 
   return (
     <AbsoluteFill
@@ -58,7 +60,7 @@ export const FutureScopeScene: React.FC = () => {
           return fadeIn * fadeOut;
         }}
       />
-      <CaptionOverlay captions={NARRATION.futureScope.captions} />
+      <AnimatedCaptions captions={NARRATION.futureScope.captions} />
 
       {/* Subtle grid */}
       <div
@@ -98,7 +100,7 @@ export const FutureScopeScene: React.FC = () => {
           zIndex: 2,
         }}
       >
-        <SectionLabel label="What's Next" frame={frame} fps={fps} />
+        <SceneHeading label="What's Next" />
 
         {/* Roadmap items */}
         <div style={{ display: "flex", flexDirection: "column", gap: 26, marginTop: 52 }}>
@@ -218,47 +220,6 @@ const RoadmapItem: React.FC<{
         }}
       >
         {text}
-      </span>
-    </div>
-  );
-};
-
-const SectionLabel: React.FC<{ label: string; frame: number; fps: number }> = ({
-  label,
-  frame,
-  fps,
-}) => {
-  const prog = spring({ frame, fps, config: { damping: 18, stiffness: 80 } });
-  const clamp = (v: number) => Math.max(0, Math.min(1, v));
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 20,
-        opacity: clamp(prog),
-        transform: `translateY(${interpolate(clamp(prog), [0, 1], [-20, 0])}px)`,
-      }}
-    >
-      <div
-        style={{
-          width: 6,
-          height: 52,
-          background: `linear-gradient(180deg, ${COLORS.accentLight}, ${COLORS.accent})`,
-          borderRadius: 3,
-          boxShadow: `0 0 16px ${COLORS.accentGlow}`,
-        }}
-      />
-      <span
-        style={{
-          fontSize: 52,
-          fontWeight: 700,
-          color: "#ffffff",
-          letterSpacing: "-1px",
-          textShadow: "0 2px 16px rgba(0,0,0,0.9)",
-        }}
-      >
-        {label}
       </span>
     </div>
   );

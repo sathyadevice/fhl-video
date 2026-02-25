@@ -7,7 +7,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { CaptionOverlay } from "../components/CaptionOverlay";
+import { AnimatedCaptions } from "../components/AnimatedCaptions";
 import { SafeAudio } from "../components/SafeAudio";
 import { SafeVideo } from "../components/SafeVideo";
 import { COLORS, DEMO_DURATION, FONTS, TRANSITION_DURATION } from "../constants";
@@ -18,6 +18,12 @@ export const DemoScene: React.FC = () => {
   const { fps } = useVideoConfig();
   const clamp = (v: number) => Math.max(0, Math.min(1, v));
 
+  // Early return — no media elements mounted at all when DEMO_DURATION = 0.
+  // The 1-frame placeholder sequence is fully hidden inside transition overlap.
+  if (!DEMO_DURATION) {
+    return <AbsoluteFill style={{ background: "#000000" }} />;
+  }
+
   const barIn = spring({ frame, fps, config: { damping: 18, stiffness: 70 } });
 
   return (
@@ -26,7 +32,7 @@ export const DemoScene: React.FC = () => {
       {/* PoC video — fullscreen, cropped to fill */}
       <SafeVideo src={staticFile("poc.mp4")} />
 
-      {/* Subtle vignette to give the video some cinematic depth */}
+      {/* Subtle vignette */}
       <div
         style={{
           position: "absolute",
@@ -50,9 +56,9 @@ export const DemoScene: React.FC = () => {
       />
 
       {/* Captions */}
-      <CaptionOverlay captions={NARRATION.demo?.captions ?? []} />
+      <AnimatedCaptions captions={NARRATION.demo?.captions ?? []} />
 
-      {/* Bottom caption bar — slides up on entry */}
+      {/* Bottom caption bar */}
       <div
         style={{
           position: "absolute",
@@ -68,7 +74,6 @@ export const DemoScene: React.FC = () => {
           transform: `translateY(${interpolate(clamp(barIn), [0, 1], [32, 0])}px)`,
         }}
       >
-        {/* Accent bar */}
         <div
           style={{
             width: 5,
