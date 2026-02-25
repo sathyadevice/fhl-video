@@ -9,14 +9,40 @@ A Remotion-based video template for creating polished hackathon presentation vid
 ## What you get
 
 A 6-scene animated video with:
-- **Title** — hack name, tagline, team
+- **Title** — hack name, tagline, team with kinetic entrance animations
 - **Hack Idea** — problem vs solution split layout
-- **Architecture** — 4-layer tech stack diagram
-- **Code Walkthrough** — annotated code snippets
-- **Benefits** — icon cards
-- **Future Scope** — roadmap items
+- **Architecture** — 4-layer tech stack diagram with animated flow
+- **Code Walkthrough** — step-by-step line spotlight with annotated sidebar
+- **Benefits** — icon cards with spring entrance
+- **Future Scope** — animated roadmap items
 
-Each scene has AI-generated voiceover and word-accurate live captions synced to the audio.
+Every scene includes AI-generated voiceover and **word-accurate live captions** with active-word highlight synced to the audio.
+
+---
+
+## Animation features
+
+### Kinetic typography
+All section headings use a no-bounce spring entrance (`damping: 200`):
+- Slide-up from below + fade in
+- Subtle scale settle (0.97 → 1.0)
+- Accent bar scales vertically in sync
+
+### Word-highlight captions
+Captions are driven by Whisper word timestamps. The word being spoken is highlighted in the theme accent colour with a soft glow — every other word stays white.
+
+### Blur crossfade transitions
+All scene transitions use a custom **rack-focus crossfade**:
+- Entering scene: fades in + zooms from 1.04 → 1.0 + blur clears
+- Exiting scene: blurs out + fades slightly
+- Duration: 18 frames (~0.6 s) — snappy but smooth
+
+### Code spotlight walkthrough
+The Code Walkthrough scene is a step-by-step code walker:
+- **Step sidebar** — 5 annotated steps that spring in as they become active
+- **Line spotlight** — a glowing accent bar springs between active line ranges
+- Inactive lines dim to 18% opacity; active lines animate to full
+- Two code snippets with a smooth cross-fade between them
 
 ---
 
@@ -127,20 +153,62 @@ See **[WORKSHOP.md](./WORKSHOP.md)** for the full hands-on session guide — pre
 fhl-video/
 ├── .claude/
 │   └── commands/
-│       └── fhl-video.md       ← Claude Code skill (/fhl-video)
+│       └── fhl-video.md           ← Claude Code skill (/fhl-video)
 ├── public/
-│   └── audio/                 ← generated MP3s (git-ignored)
+│   └── audio/                     ← generated MP3s (git-ignored)
 ├── scripts/
-│   ├── generate-audio.mjs     ← Azure OpenAI TTS + Whisper pipeline
-│   └── test-tts.mjs           ← verify Azure connection
+│   ├── generate-audio.mjs         ← Azure OpenAI TTS + Whisper pipeline
+│   └── test-tts.mjs               ← verify Azure connection
 ├── src/
-│   ├── scenes/                ← one TSX file per scene
-│   ├── components/            ← CaptionOverlay, ParticleField, SafeAudio
-│   ├── constants.ts           ← all content + colours (edit this for your hack)
-│   └── narration.ts           ← auto-generated caption timings
-├── WORKSHOP.md                ← hands-on session guide
+│   ├── scenes/                    ← one TSX file per scene
+│   ├── components/
+│   │   ├── AnimatedCaptions.tsx   ← word-highlight caption renderer
+│   │   ├── KineticText.tsx        ← spring typography primitive
+│   │   ├── SceneHeading.tsx       ← unified section heading component
+│   │   ├── ParticleField.tsx
+│   │   ├── SafeAudio.tsx
+│   │   └── SafeVideo.tsx
+│   ├── transitions/
+│   │   └── crossZoom.tsx          ← blur crossfade + zoom transition
+│   ├── constants.ts               ← all content + colours (edit this)
+│   └── narration.ts               ← auto-generated caption timings
+├── WORKSHOP.md                    ← hands-on session guide
 └── package.json
 ```
+
+---
+
+## Adding a PoC demo video
+
+The template includes an optional **Demo scene** that plays your screen recording fullscreen with voiceover and a caption bar. It sits between Code Walkthrough and Benefits.
+
+**Step 1** — Drop your recording into `public/`:
+```
+public/poc.mp4
+```
+
+**Step 2** — Set the duration in `src/constants.ts`:
+```ts
+// seconds × 30 = frames  (e.g. 20s video → 600)
+export const DEMO_DURATION = 600;
+```
+
+**Step 3** — Swap the import in `src/Root.tsx`:
+```ts
+// Replace this line:
+import { HackVideo } from "./HackVideo";
+// With this:
+import { HackVideoWithDemo as HackVideo } from "./HackVideoWithDemo";
+```
+
+**Step 4** — Re-run the audio pipeline to generate demo voiceover:
+```bash
+node scripts/generate-audio.mjs
+```
+
+> **No PoC video yet?** Leave `DEMO_DURATION = 0` and keep `Root.tsx` unchanged — the scene is skipped entirely and won't cause any errors.
+
+If you're using the `/fhl-video` Claude Code skill, all of this is handled automatically when you answer yes to the demo video question.
 
 ---
 
